@@ -28,6 +28,8 @@ The model is trained using `./model/train.py`. The output of the training is a p
 
 We can now load the model `.pth` file and use it to make predictions. This is done in `./model/inference.py`.
 
+![Inference](./docs/inference.png)
+
 Example:
 
     ```bash
