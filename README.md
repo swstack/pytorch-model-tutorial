@@ -40,6 +40,9 @@ prediction:  24.539400100708008
 
 ## Serving the Model
 
+First package the model files and custom torchserve handler:
+
+```bash
 torch-model-archiver -f \
     --model-name model \
     --export-path serve/ \
@@ -47,7 +50,11 @@ torch-model-archiver -f \
     --serialized-file model/model.pth \
     --extra-files "model/model.py" \
     --handler serve/handler.py
+```
 
+Then run the server:
+
+```bash
 torchserve \
     --start --ncs \
     --model-store serve/ \
@@ -55,3 +62,18 @@ torchserve \
     --log-config serve/log4j2.xml
 
 torchserve --start --log-config /path/to/custom/log4j2.xml
+```
+
+Finally, test it:
+
+```bash
+curl --location --request GET 'http://localhost:8080/predictions/model' \
+--header 'Content-Type: application/json' \
+--data '{
+    "data": 5.0
+}'
+
+[
+  16.075029373168945
+]
+```
