@@ -4,6 +4,8 @@ import torch
 from torch import nn
 from torch.utils.data import Dataset, DataLoader
 
+from model.model import LinearRegressionModel
+
 
 class CustomCSVDataset(Dataset):
     def __init__(self, csv_file, transform=None):
@@ -34,15 +36,6 @@ class CustomCSVDataset(Dataset):
             data_row = self.transform(data_row)
 
         return data_row, label
-
-
-class LinearRegressionModel(nn.Module):
-    def __init__(self):
-        super(LinearRegressionModel, self).__init__()
-        self.linear = nn.Linear(1, 1)  # 1 input feature, 1 output feature
-
-    def forward(self, x):
-        return self.linear(x)
 
 
 def train():
